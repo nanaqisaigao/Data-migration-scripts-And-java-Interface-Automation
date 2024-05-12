@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hellobike.pmo.cockpit.dal.security.SecurityScoreAndMetricDAOTest">
+    <select id="querySecurityScoreByBuIdTest" resultType="com.hellobike.pmo.cockpit.model.security.score.SecurityScoreBuDOTest">
+        SELECT id, record_date, bu_id, bu_name,
+        ROUND(quality_score,4) AS 'score'
+        FROM  ${securityScoreTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND bu_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+
+    <select id="querySecurityScoreByDeptIdTest" resultType="com.hellobike.pmo.cockpit.model.security.score.SecurityScoreDeptDOTest">
+        SELECT id, record_date, bu_id, bu_name,dept_id,dept_name,
+        ROUND(quality_score,4) AS 'score'
+        FROM ${securityScoreTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND dept_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC, score DESC
+    </select>
+
+    <select id="querySecurityMetricByBuIdTest" resultType="com.hellobike.pmo.cockpit.model.security.detail.SecurityMetricBuDOTest">
+        SELECT id, record_date, bu_id, bu_name,
+        ROUND(cp_sla,2) AS 'sla',
+        ROUND(cp_fault_score,2) AS 'faultScore',
+        ROUND((cp_be_overdue_risk_total / cp_check_risk_total)*100, 2) AS 'riskOverDueRate',
+        CASE
+        WHEN cp_disaster_total IS NULL OR cp_disaster_overdue_total IS NULL THEN NULL
+        WHEN cp_disaster_total = 0 THEN 0
+        ELSE ROUND(((cp_disaster_total - cp_disaster_overdue_total) / cp_disaster_total) * 100, 2)
+        END AS 'onTimeWarningRate'
+        FROM ${securityMetricTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND bu_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+
+
+    <select id="querySecurityMetricByDeptIdTest" resultType="com.hellobike.pmo.cockpit.model.security.detail.SecurityMetricDeptDOTest">
+        SELECT id, record_date, bu_id, bu_name,dept_id,dept_name,
+        ROUND(cp_sla,2) AS 'sla',
+        ROUND(cp_fault_score,2) AS 'faultScore',
+        ROUND((cp_be_overdue_risk_total / cp_check_risk_total)*100, 2) AS 'riskOverDueRate',
+        CASE
+        WHEN cp_disaster_total IS NULL OR cp_disaster_overdue_total IS NULL THEN NULL
+        WHEN cp_disaster_total = 0 THEN 0
+        ELSE ROUND(((cp_disaster_total - cp_disaster_overdue_total) / cp_disaster_total) * 100, 2)
+        END AS 'onTimeWarningRate'
+        FROM ${securityMetricTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND dept_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+</mapper>

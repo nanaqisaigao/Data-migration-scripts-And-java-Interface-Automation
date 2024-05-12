@@ -1,0 +1,8 @@
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (1, '计划制定异常','人天豁免', '需求人力不超过', 'BigDecimal', 0, 1);
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (2, '资源规划异常','人天豁免', '需求人力不超过', 'BigDecimal', 0, 2);
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (3,'非立项项目异常','人天豁免', '需求人力不超过', 'BigDecimal', 0, 4);
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (4,'项目周期过长','天豁免', '项目周期不超过', 'BigDecimal', 0, 12);
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (5,'目标设定异常','人天豁免', '需求人力不超过', 'BigDecimal', 0, 6);
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (6,'项目复盘异常','天豁免', '自最近一次项目复盘后，不超过', 'BigDecimal', 0, 9);
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (7,'项目复盘异常','人天豁免', '需求人力不超过', 'BigDecimal', 0, 9);
+INSERT INTO `t_exception_exemption_rule_dict`( `id`,`exception_type`, `exemption_rule_unit`,`exemption_rule`, `variable_type`, `is_delete`, `exception_type_id`) VALUES (8,'立项推进异常','人天豁免', '需求人力不超过', 'BigDecimal', 0, 8);

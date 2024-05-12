@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hellobike.pmo.cockpit.dal.home.AnalysisReportDAOTest">
+
+    <select id="queryDeptAnalysisReportTest" resultType="com.hellobike.pmo.cockpit.model.home.AnalysisReportDOTest">
+        SELECT id,bu_id,bu_name,dept_id,dept_name,report_type,report_date,analysis_summary,report_template_id,create_time,create_user,update_time,update_user,is_delete,analysis_module_content
+        FROM t_analysis_report
+        WHERE is_delete=0 AND analysis_summary IS NOT NULL AND analysis_summary != ''
+        <if test="buId !=null and buId != ''">
+            AND bu_id = #{buId}
+        </if>
+        <if test="deptId != null and !deptId.isEmpty()">
+            AND dept_id IN
+            <foreach item="item" index="index" collection="deptId" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="reportType != null">
+            AND report_type = #{reportType}
+        </if>
+        <if test="reportDate != null and !reportDate.isEmpty()">
+            AND report_date IN
+            <foreach item="item" index="index" collection="reportDate" open = "(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <choose>
+            <when test="deptId.isEmpty()">
+                AND dept_id is NOT NULL
+            </when>
+        </choose>
+<!--        <if test="dataFlag !=null">-->
+<!--            <choose>-->
+<!--                <when test="dataFlag==0">-->
+<!--                    &lt;!&ndash; 只查询软研,所以部门id为空 &ndash;&gt;-->
+<!--                    AND dept_id is null-->
+<!--                </when>-->
+<!--                <when test="dataFlag == 1">-->
+<!--                    &lt;!&ndash; 只查询部门,所以部门id不能为空 &ndash;&gt;-->
+<!--                    AND dept_id is not null-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    &lt;!&ndash; 为 2 或者为空 都会查询全部 &ndash;&gt;-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </if>-->
+    </select>
+</mapper>

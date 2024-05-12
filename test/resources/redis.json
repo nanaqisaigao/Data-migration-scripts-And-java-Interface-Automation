@@ -1,0 +1,20 @@
+{
+  "common": {
+    "database": 1,
+    "connectionTimeout": 5000,
+    "soTimeout": 5000,
+    "maxAttempts": 3,
+    "minIdle": 32,
+    "maxIdle": 64,
+    "maxTotal": 128,
+    "testOnBorrow": true,
+    "testOnReturn": true,
+    "lbStrategy": 0
+  },
+  "pools": [
+    {
+      "redisName": "public-redis"
+    }
+  ]
+}
+

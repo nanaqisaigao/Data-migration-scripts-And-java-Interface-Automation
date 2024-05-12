@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hellobike.pmo.cockpit.dal.deliver.DeliverScoreAndMetricDAOTest">
+    <select id="queryDeliverScoreAndMetricByBuIdTest" resultType="com.hellobike.pmo.cockpit.model.deliver.DeliverScoreAndMetricBuDOTest">
+        SELECT id, record_date, bu_id, bu_name,
+        ROUND((cp_p_ontime_done_effort / cp_p_done_effort)*100, 2) AS 'onTimeCompletionRate',
+        ROUND((cp_p_dev_reason_change / cp_p_on_going_total)*100, 2) AS 'projectChangeRate',
+        ROUND((cp_r_ontime_done_total / cp_r_done_total)*100, 2) AS 'onTimeDeliveryRate',
+        ROUND((cp_r_dev_reason_change / cp_r_done_total)*100, 2) AS 'requirementChangeRate'
+        FROM ${deliverScoreAndMetricTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND bu_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+
+    <select id="queryDeliverScoreAndMetricByDeptIdTest" resultType="com.hellobike.pmo.cockpit.model.deliver.DeliverScoreAndMetricDeptDOTest">
+        SELECT id, record_date, bu_id, bu_name,dept_id,dept_name,
+        ROUND((cp_p_ontime_done_effort / cp_p_done_effort)*100, 2) AS 'onTimeCompletionRate',
+        ROUND((cp_p_dev_reason_change / cp_p_on_going_total)*100, 2) AS 'projectChangeRate',
+        ROUND((cp_r_ontime_done_total / cp_r_done_total)*100, 2) AS 'onTimeDeliveryRate',
+        ROUND((cp_r_dev_reason_change / cp_r_done_total)*100, 2) AS 'requirementChangeRate'
+        FROM ${deliverScoreAndMetricTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND dept_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+</mapper>

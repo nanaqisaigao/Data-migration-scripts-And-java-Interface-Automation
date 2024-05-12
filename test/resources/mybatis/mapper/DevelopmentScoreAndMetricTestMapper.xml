@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hellobike.pmo.cockpit.dal.development.DevelopmentScoreAndMetricDAOTest">
+    <select id="queryDevelopmentMetricByBuIdTest" resultType="com.hellobike.pmo.cockpit.model.development.detail.DevelopmentMetricBuDOTest">
+        SELECT id, record_date, bu_id, bu_name,
+        ROUND((cp_p_create_done_period/cp_p_create_total)*100, 2) AS 'projectDeliveryDuration',
+        ROUND((cp_r_dev_done_period/cp_r_done_total)*100, 2) AS 'requirementDevDeliveryDuration',
+        ROUND((cp_r_done_total / cp_manpower_total) * 100, 2) AS 'requirementDeliveryPerPersonDay',
+        ROUND((cp_r_first_test_pass_total / cp_r_test_total) * 100, 2) AS 'firstSmokeTestPassRate',
+        ROUND((cp_d_reopen_total / cp_d_total) * 100, 2) AS 'bugReopenRate',
+        ROUND((cp_d_high_done_period / cp_d_high_total) * 100, 2) AS 'severityBugResolutionDuration',
+        ROUND((cp_app_publish_success_total / cp_app_publish_total) * 100, 2) AS 'appPublishSuccessRate'
+        FROM ${developmentMetricTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND bu_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+
+    <select id="queryDevelopmentMetricByDeptIdTest" resultType="com.hellobike.pmo.cockpit.model.development.detail.DevelopmentMetricDeptDOTest">
+        SELECT id, record_date, bu_id, bu_name,dept_id,dept_name,
+        ROUND((cp_p_create_done_period/cp_p_create_total)*100, 2) AS 'projectDeliveryDuration',
+        ROUND((cp_r_dev_done_period/cp_r_done_total)*100, 2) AS 'requirementDevDeliveryDuration',
+        ROUND((cp_r_done_total / cp_manpower_total) * 100, 2) AS 'requirementDeliveryPerPersonDay',
+        ROUND((cp_r_first_test_pass_total / cp_r_test_total) * 100, 2) AS 'firstSmokeTestPassRate',
+        ROUND((cp_d_reopen_total / cp_d_total) * 100, 2) AS 'bugReopenRate',
+        ROUND((cp_d_high_done_period / cp_d_high_total) * 100, 2) AS 'severityBugResolutionDuration',
+        ROUND((cp_app_publish_success_total / cp_app_publish_total) * 100, 2) AS 'appPublishSuccessRate'
+        FROM ${developmentMetricTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND dept_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+    <select id="queryDevelopmentMetricByCampaignIdTest" resultType="com.hellobike.pmo.cockpit.model.development.detail.DevelopmentMetricCampaignDOTest">
+        SELECT id, record_date, bu_id, bu_name,campaign_id,campaign_name,
+        ROUND((cp_p_create_done_period/cp_p_create_total)*100, 2) AS 'projectDeliveryDuration',
+        ROUND((cp_r_dev_done_period/cp_r_done_total)*100, 2) AS 'requirementDevDeliveryDuration',
+        ROUND((cp_r_done_total / cp_manpower_total) * 100, 2) AS 'requirementDeliveryPerPersonDay',
+        ROUND((cp_r_first_test_pass_total / cp_r_test_total) * 100, 2) AS 'firstSmokeTestPassRate',
+        ROUND((cp_d_reopen_total / cp_d_total) * 100, 2) AS 'bugReopenRate',
+        ROUND((cp_d_high_done_period / cp_d_high_total) * 100, 2) AS 'severityBugResolutionDuration',
+        ROUND((cp_app_publish_success_total / cp_app_publish_total) * 100, 2) AS 'appPublishSuccessRate'
+        FROM ${developmentMetricTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND campaign_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+
+    <select id="queryDevelopmentScoreByBuIdTest" resultType="com.hellobike.pmo.cockpit.model.development.score.DevelopmentScoreBuDOTest">
+        SELECT id, record_date, bu_id, bu_name,
+        ROUND(quality_score,4) AS 'score'
+        FROM  ${developmentScoreTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND bu_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC
+    </select>
+
+    <select id="queryDevelopmentScoreByDeptIdTest" resultType="com.hellobike.pmo.cockpit.model.development.score.DevelopmentScoreDeptDOTest">
+        SELECT id, record_date, bu_id, bu_name,dept_id,dept_name,
+        ROUND(quality_score,4) AS 'score'
+        FROM ${developmentScoreTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND dept_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC, score DESC
+    </select>
+    <select id="queryDevelopmentScoreByCampaignIdTest" resultType="com.hellobike.pmo.cockpit.model.development.score.DevelopmentScoreCampaignDOTest">
+        SELECT id, record_date, bu_id, bu_name,campaign_id,campaign_name,
+        ROUND(quality_score,4) AS 'score'
+        FROM ${developmentScoreTable}
+        WHERE is_delete = 0
+        <if test="dateFrom != null ">
+            AND record_date <![CDATA[>=]]> #{dateFrom, jdbcType=DATE}
+        </if>
+        <if test="dateTo != null ">
+            AND record_date <![CDATA[<=]]> #{dateTo,jdbcType=DATE}
+        </if>
+        <if test="entityId != null">
+            AND campaign_id = #{entityId}
+        </if>
+        ORDER BY record_date ASC, score DESC
+    </select>
+</mapper>
+
